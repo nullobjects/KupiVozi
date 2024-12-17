@@ -162,4 +162,5 @@ cython_debug/
 #.idea/
 
 # Ignore the data since it gets downloaded and managed by the server
-backend/scraper/data
+backend/scraper/data/*
+!backend/scraper/data/car_data.csv
