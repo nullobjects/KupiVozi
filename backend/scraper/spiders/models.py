@@ -5,7 +5,6 @@ WEBSITES = {
     "pazar3": {"domain": "pazar3.mk", "listings": "https://www.pazar3.mk/oglasi/vozila/avtomobili/prodazba?Page=1"},
     "autowelt": {"domain": "autowelt.mk", "listings": "https://autowelt.mk/vehicles"},
     "toyota": {"domain": "toyota.com.mk", "listings": "https://www.toyota.com.mk/vozila/koristeni/"},
-    "vozi": {"domain": "vozi.com", "listings": "https://vozi.com/mk/prebaruvaj/avtomobili/makedonija?page=1"},
 }
 
 # Create your models here.

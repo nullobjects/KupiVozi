@@ -201,16 +201,16 @@ SEAT,Leon Sportstourer,148 hp,184 lb-ft,7-speed DSG,Front-wheel drive,28/39 mpg,
 SEAT,Tarraco,188 hp,221 lb-ft,7-speed DSG,Front-wheel drive,21/28 mpg,7,"Starting at $32,990",2023-2024,SUV,4-cylinder,4
 SEAT,Mii,70 hp,74 lb-ft,5-speed manual,Front-wheel drive,32.5/42.5 mpg,3,"Starting at $15,490",2023-2024,Hatchback,3-cylinder,3
 SEAT,Born,201 hp,221 lb-ft,Single-speed automatic,Rear-wheel drive,77 MPGe,5,"Starting at $39,990",2023-2024,Hatchback,Electric,0
-Opel/Vauxhall,Adam,70 hp,74 lb-ft,5-speed manual,Front-wheel drive,32.5/42.5 mpg,3,"Starting at $15,490",2023-2024,Hatchback,3-cylinder,3
-Opel/Vauxhall,Corsa,108 hp,138 lb-ft,5-speed manual,Front-wheel drive,27/37 mpg,5,"Starting at $18,000",2023-2024,Hatchback,3-cylinder,3
-Opel/Vauxhall,Astra,158 hp,184 lb-ft,8-speed automatic,Front-wheel drive,27/37 mpg,5,"Starting at $26,000",2023-2024,Sedan,4-cylinder,4
-Opel/Vauxhall,Insignia,272 hp,332 lb-ft,8-speed automatic,Rear-wheel drive,22/30 mpg,5,"Starting at $34,000",2023-2024,Sedan,V6,6
-Opel/Vauxhall,Mokka,175 hp,195 lb-ft,8-speed automatic,Front-wheel drive,25/33 mpg,5,"Starting at $24,000",2023-2024,SUV,3-cylinder,3
-Opel/Vauxhall,Grandland,180 hp,199 lb-ft,8-speed automatic,Front-wheel drive,25/33 mpg,5,"Starting at $30,000",2023-2024,SUV,4-cylinder,4
-Opel/Vauxhall,Crossland,119 hp,138 lb-ft,8-speed automatic,Front-wheel drive,27/38 mpg,5,"Starting at $23,990",2023-2024,SUV,3-cylinder,3
-Opel/Vauxhall,Combo,108 hp,138 lb-ft,5-speed manual,Front-wheel drive,27/37 mpg,5,"Starting at $18,000",2023-2024,Van,3-cylinder,3
-Opel/Vauxhall,Vivaro,148 hp,184 lb-ft,8-speed automatic,Front-wheel drive,25/33 mpg,5,"Starting at $27,990",2023-2024,Van,4-cylinder,4
-Opel/Vauxhall,Movano,180 hp,199 lb-ft,8-speed automatic,Front-wheel drive,21/28 mpg,7,"Starting at $32,990",2023-2024,Van,4-cylinder,4
+Opel,Adam,70 hp,74 lb-ft,5-speed manual,Front-wheel drive,32.5/42.5 mpg,3,"Starting at $15,490",2023-2024,Hatchback,3-cylinder,3
+Opel,Corsa,108 hp,138 lb-ft,5-speed manual,Front-wheel drive,27/37 mpg,5,"Starting at $18,000",2023-2024,Hatchback,3-cylinder,3
+Opel,Astra,158 hp,184 lb-ft,8-speed automatic,Front-wheel drive,27/37 mpg,5,"Starting at $26,000",2023-2024,Sedan,4-cylinder,4
+Opel,Insignia,272 hp,332 lb-ft,8-speed automatic,Rear-wheel drive,22/30 mpg,5,"Starting at $34,000",2023-2024,Sedan,V6,6
+Opel,Mokka,175 hp,195 lb-ft,8-speed automatic,Front-wheel drive,25/33 mpg,5,"Starting at $24,000",2023-2024,SUV,3-cylinder,3
+Opel,Grandland,180 hp,199 lb-ft,8-speed automatic,Front-wheel drive,25/33 mpg,5,"Starting at $30,000",2023-2024,SUV,4-cylinder,4
+Opel,Crossland,119 hp,138 lb-ft,8-speed automatic,Front-wheel drive,27/38 mpg,5,"Starting at $23,990",2023-2024,SUV,3-cylinder,3
+Opel,Combo,108 hp,138 lb-ft,5-speed manual,Front-wheel drive,27/37 mpg,5,"Starting at $18,000",2023-2024,Van,3-cylinder,3
+Opel,Vivaro,148 hp,184 lb-ft,8-speed automatic,Front-wheel drive,25/33 mpg,5,"Starting at $27,990",2023-2024,Van,4-cylinder,4
+Opel,Movano,180 hp,199 lb-ft,8-speed automatic,Front-wheel drive,21/28 mpg,7,"Starting at $32,990",2023-2024,Van,4-cylinder,4
 Mini,Cooper,134 hp,162 lb-ft,7-speed dual-clutch automatic,Front-wheel drive,28/37 mpg,3,"Starting at $24,000",2023-2024,Hatchback,3-cylinder,3
 Mini,Cooper S,189 hp,207 lb-ft,7-speed dual-clutch automatic,Front-wheel drive,27/36 mpg,3,"Starting at $28,000",2023-2024,Hatchback,4-cylinder,4
 Mini,John Cooper Works,228 hp,236 lb-ft,8-speed automatic,Front-wheel drive,25/33 mpg,3,"Starting at $33,000",2023-2024,Hatchback,4-cylinder,4

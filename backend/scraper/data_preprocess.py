@@ -8,15 +8,17 @@ MANUFACTURER_COLUMN = "Company"
 MODEL_COLUMN = "Model"
 
 def ExtractCarInfo(text):
-    car_data = pd.read_csv("./scraper/data/car_data.csv")#, sep=";")
+    car_data = pd.read_csv("./scraper/data/car_data.csv")  # Load car data
 
     text = text.lower()
 
+    # Manufacturer
     make_list = car_data[MANUFACTURER_COLUMN].str.strip().str.lower().unique()
     make, make_score, _ = process.extractOne(text, make_list, scorer=fuzz.partial_ratio)
     if make_score < 70:
         make = None
 
+    # Model
     model = None
     if make:
         model_list = car_data.loc[car_data[MANUFACTURER_COLUMN].str.strip().str.lower() == make.lower(), MODEL_COLUMN].dropna().tolist()
@@ -24,10 +26,47 @@ def ExtractCarInfo(text):
         if model_score < 70:
             model = None
 
-    year_match = re.search(r"\b(19[0-9]{2}|20[0-2][0-9])\b", text)
+    # Year
+    year_match = re.search(r"(^|\D)(\d{4})(?=\D|$)", text)
     year = year_match.group(0) if year_match else None
+    year = year.strip()
 
-    return {"make": make, "model": model, "year": year}
+    # Price
+    price_data = ExtractPriceAndCurrency(text)
+
+    # Kilometers
+    km_match = re.search(r"(?<!\d)(\d{1,3}(?:\s*\d{3})?)\s*[-–]\s*(\d{1,3}(?:\s*\d{3})?)", text)
+    kilometers = None
+    if km_match:
+        kilometers = f"{km_match.group(1).replace(' ', '')}-{km_match.group(2).replace(' ', '')}"
+
+    return {
+        "make": make,
+        "model": model,
+        "year": year,
+        "price": price_data,
+        "kilometers": kilometers,
+    }
+
+def ExtractPriceAndCurrency(text):
+    match = re.search(
+        r"(\b\d{1,3}(?:[\s,]?\d{3})*(?:\.\d{1,2})?)\s*(€|eur|usd|ден|еур|\$|mkd|мкд)|"  # Price followed by currency
+        r"(€|eur|usd|ден|еур|\$|mkd|мкд)\s*(\b\d{1,3}(?:[\s,]?\d{3})*(?:\.\d{1,2})?)",  # Currency followed by price
+        text,
+        re.IGNORECASE,
+    )
+    if match:
+        if match.group(1):
+            price = match.group(1).replace(" ", "").replace(",", "")
+            currency = match.group(2).upper()
+        elif match.group(4):
+            price = match.group(4).replace(" ", "").replace(",", "")
+            currency = match.group(3).upper()
+        else:
+            price, currency = None, "UNKNOWN"
+
+        return price + currency
+    return None
 
 
 def PreProcessPartsDataForTraining(csv_path="./scraper/data/for_parts.csv", max_tokens=10000, seq_length=30, batch_size=32):
@@ -68,3 +107,6 @@ def PreProcessPartsDataForTraining(csv_path="./scraper/data/for_parts.csv", max_
     #                .prefetch(tf.data.AUTOTUNE))
 
     return train_dataset, test_texts, test_labels
+
+def IsCarValid(CarData):
+    return not (CarData["make"] == None or CarData["model"] == None or CarData["year"] == None or CarData["price"] == None or CarData["link"] == None)

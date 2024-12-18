@@ -1,14 +1,7 @@
-#Scrapy	Large-scale scraping with high efficiency	- Asynchronous, fast
-#- Built-in crawling
-#- Scalable and production-ready
-
-# Vehicle data used from
-# https://public.opendatasoft.com/explore/dataset/all-vehicles-model/api/
-
 import scrapy
-from .models import WEBSITES
-from .data_download import WriteRowToSiteCSV
-from .data_preprocess import ExtractCarInfo
+from ..models import WEBSITES
+from ..data_download import WriteRowToSiteCSV
+from ..data_preprocess import ExtractCarInfo, IsCarValid
 
 class Reklama5Spider(scrapy.Spider):
     name = "reklama5"
@@ -18,6 +11,7 @@ class Reklama5Spider(scrapy.Spider):
     def parse(self, response):
         for car in response.css(".ad-desc-div.col-lg-6.text-left"):
             title = car.css("h3 a::text").get().strip()
+            link = car.css("h3 a").attrib["href"]
             tags = " ".join(
                 text.strip() for text in car.css("p::text").getall() if text.strip() and text.strip() != "•"
             )
@@ -25,18 +19,12 @@ class Reklama5Spider(scrapy.Spider):
             price = car.css(".search-ad-price::text").get().strip()
 
             full_text = title + " " + tags + " " + description + " " + price
-            print(ExtractCarInfo(full_text))
-            #print("--------------")
-            #print(title)
-            #print(tags)
-            #print(description)
-            #print(price)
-            #print("-----------")
-            #WriteRowToSiteCSV({
-            #    'name': car.css('h3 a::text').get(),
-            #    'price': car.css('p').get(),
-            #    'link': response.urljoin(car.css('a::attr(href)').get()),
-            #})
+
+            CarData = ExtractCarInfo(full_text)
+            CarData["link"] = WEBSITES["reklama5"]["domain"] + link
+            
+            if IsCarValid(CarData):
+                WriteRowToSiteCSV("reklama5", CarData)
 
         pages_str = response.css(".number-of-pages::text").get()
         if pages_str:
@@ -49,3 +37,4 @@ class Reklama5Spider(scrapy.Spider):
             #    #yield scrapy.Request(next_page, callback=self.parse)
             #else:
             #    self.log("Done scraping reklama5!")
+

@@ -1,10 +1,13 @@
-from scrapy.crawler import CrawlerProcess
+from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
-from .scraper import Reklama5Spider
+from twisted.internet import reactor, defer
+from scrapy.utils.project import get_project_settings
 from .data_download import DownloadCarData
 from .data_preprocess import PreProcessPartsDataForTraining
 from .nlp_models import DamagedOrForPartsModel
+from .spiders import Pazar3Spider, Reklama5Spider, VoziSpider
 from sklearn.metrics import accuracy_score
+from tensorflow.keras.models import load_model
 import os
 import logging
 
@@ -16,12 +19,19 @@ logging.getLogger('tensorflow').setLevel(logging.ERROR)
 if os.environ.get('RUN_MAIN') == 'true':
     # Data pipeline is here #
 
-    # Scraper fetches all data #
+    # Scraper runs asynchronously and gets the data from all websites #
     def start_scraper():
-        process = CrawlerProcess(get_project_settings())
-        process.crawl(Reklama5Spider)
-        process.start()
+        runner = CrawlerRunner(get_project_settings())
 
+        spiders = [Pazar3Spider, Reklama5Spider]#, VoziSpider]
+
+        @defer.inlineCallbacks
+        def crawl():
+            for spider in spiders:
+                yield runner.crawl(spider)
+            reactor.stop()
+        crawl()
+        reactor.run()
     start_scraper()
 
     # Download car data (makes, models, years ...)
@@ -31,9 +41,18 @@ if os.environ.get('RUN_MAIN') == 'true':
     # Data is preprocessed for training #
     train_dataset, test_x, test_y = PreProcessPartsDataForTraining()
 
-    model = DamagedOrForPartsModel()
+    model_path = "./scraper/data/models/parts_model.h5"
 
-    model.fit(train_dataset, epochs=15, batch_size=32)
+    if os.path.exists(model_path):
+        print("Loading saved model...")
+        model = load_model(model_path)
+    else:
+        print("No saved model found. Training a new model...")
+        model = DamagedOrForPartsModel()
+        model.fit(train_dataset, epochs=15, batch_size=32)
+        model.save(model_path)  # Save the model for future use
+        print(f"Model saved to {model_path}")
+
     predictions = model.predict(test_x)
     predictions = (predictions > 0.5).astype(int).flatten()
 
