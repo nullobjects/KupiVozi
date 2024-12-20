@@ -11,6 +11,8 @@ from tensorflow.keras.models import load_model
 import os
 import logging
 
+CAR_DATA_URL = "NO HOSTED URL AS OF NOW"
+
 # Get rid of tensorflow logs and messages #
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 logging.getLogger('tensorflow').setLevel(logging.ERROR)
@@ -35,7 +37,6 @@ if os.environ.get('RUN_MAIN') == 'true':
     start_scraper()
 
     # Download car data (makes, models, years ...)
-    CAR_DATA_URL = "NO HOSTED URL AS OF NOW"
     DownloadCarData(CAR_DATA_URL, "./scraper/data/car_data.csv")
 
     # Data is preprocessed for training #
